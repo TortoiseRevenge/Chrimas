@@ -8,14 +8,13 @@ import java.util.Scanner;
 public class FileReader {
   public static ArrayList<ArrayList<String[]>> getList(File a) throws FileNotFoundException {
     Scanner scan = new Scanner(a);
-    int lines = Integer.parseInt(scan.nextLine());
 
     ArrayList<ArrayList<String[]>> list = new ArrayList<ArrayList<String[]>>();
 
     String currFam = "";
 
     ArrayList<String[]> famList = new ArrayList<String[]>();
-    for (int b = 0; b < lines; b++) {
+    while(scan.hasNextLine()) {
       String input = scan.nextLine();
       if (!input.equals("")) {
         String[] z = input.split(",");
@@ -30,11 +29,11 @@ public class FileReader {
         }
         famList.add(z);
 
-      }else {
-        b--;
       }
     }
+    scan.close();
     list.add(famList);
+    System.out.println(list.get(0));
     return list;
   }
 
@@ -42,9 +41,7 @@ public class FileReader {
     int size = 0;
     Random rand = new Random();
     for (ArrayList<String[]> family : b) {
-      for (String[] person : family) {
-        size++;
-      }
+      size += family.size();
     }
 
     String[][] newList = new String[size][3];
@@ -121,4 +118,3 @@ public class FileReader {
     return null;
   }
 }
-// 3D Array, with 2D of just families. Count size of all not in current family, take random one.
